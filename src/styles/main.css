@@ -1,0 +1,41 @@
+html, body {
+  height: 99%;
+}
+body {
+  background-color: #fdf3e7;
+  font-family: 'Dosis';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cards {
+  position: relative;
+  margin: 25px;
+  width: 600px;
+  height: 200px;
+  font-size: 150px;
+}
+
+.flash-card {
+  background-color: #fbe6cd;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 200px;
+  justify-content: space-around;
+  align-items: center;
+  border: 3px solid #f9dbb8;
+}
+
+.swipe-enter-active, .swipe-leave-active {
+  transition: all 0.3s;
+}
+.swipe-enter, .swipe-leave-active {
+  opacity: 0;
+}
+.swipe-enter {
+  transform: translateX(150px);
+}
+.swipe-leave-active {
+  transform: translateX(-150px);
+}
