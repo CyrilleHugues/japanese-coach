@@ -8,6 +8,16 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.game-container {
+  display: flex;
+}
+
+.cards.min, .flash-card.min {
+  width: 200px;
+  height: 200px;
+}
+
 .cards {
   position: relative;
   margin: 25px;
@@ -25,6 +35,29 @@ body {
   justify-content: space-around;
   align-items: center;
   border: 3px solid #f9dbb8;
+}
+
+.response {
+  margin: 25px;
+}
+
+.response input {
+  height: 200px;
+  width: 200px;
+  background-color: #fbe6cd;
+  border:none;
+  text-align: center;
+  font-family: inherit;
+  font-size: 150px;
+  border: 3px solid #f9dbb8;
+}
+
+.response input.errored {
+  background-color: #EF5350;
+}
+
+.response input:focus {
+  outline: none;
 }
 
 .swipe-enter-active, .swipe-leave-active {

@@ -1,20 +1,27 @@
 <script>
-import symbolList from './providers/hiragana.json';
+/* eslint-env browser */
+import SymbolProvider from './providers/SymbolProvider';
 
 export default {
   name: 'app',
   data() {
     return {
-      index: 0,
-      symbols: symbolList,
+      symbol: SymbolProvider.getNextSymbol(),
+      guess: '',
+      currentError: false,
     };
   },
-  computed: {
-    symbol() { return this.symbols[this.index]; },
+  mounted() {
+    document.querySelector('.game-container input').focus();
   },
   methods: {
-    nextSymbol() {
-      this.index = (this.index === this.symbols.length - 1) ? 0 : this.index + 1;
+    validate() {
+      if (this.guess === this.symbol.tra) {
+        this.nextSymbol();
+      } else {
+        this.currentError = true;
+        this.symbol.errors += 1;
+      }
     },
   },
 };
@@ -22,16 +29,18 @@ export default {
 
 <template>
   <div id="app">
-    <div>
-      <h1>Hiragana Flash-Cards</h1>
-      <div class="cards">
+    <h1>What is this ?</h1>
+    <div class="game-container">
+      <div class="min cards">
         <transition name="swipe">
-          <div class="flash-card" @click="nextSymbol" :key="index">
+          <div class="min flash-card" :key="symbol.tra">
             <span>{{ symbol.sym }}</span>
-            <span>{{ symbol.tra }}</span>
           </div>
         </transition>
       </div>
-    <div>
+      <form class="response" @submit.prevent="validate">
+        <input :class="{errored: currentError}" type="text" v-model="guess"/>
+      </form>
+    </div>
   </div>
 </template>
