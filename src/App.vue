@@ -16,11 +16,11 @@ export default {
   },
   methods: {
     validate() {
-      if (this.guess === this.symbol.tra) {
-        this.nextSymbol();
+      const valid = SymbolProvider.validateInput(this.symbol, this.guess, this.currentError);
+      if (valid) {
+        this.symbol = SymbolProvider.getNextSymbol();
       } else {
         this.currentError = true;
-        this.symbol.errors += 1;
       }
     },
   },

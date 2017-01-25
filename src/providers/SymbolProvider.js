@@ -1,4 +1,4 @@
-import { sampleSize } from 'lodash';
+import { find, sampleSize } from 'lodash';
 import hiragana from './hiragana.json';
 
 const symbols = hiragana.map(symbol => ({
@@ -19,6 +19,22 @@ const getNextSymbol = () => {
   return bestSymbol;
 };
 
+const validateInput = (symbol, guess, currentError = false) => {
+  if (symbol.tra !== guess) {
+    const erroredSymbol = find(symbols, s => s.sym === symbol.sym);
+    erroredSymbol.errors += currentError ? 0 : 1;
+    return false;
+  }
+  return true;
+};
+
+const getErrors = () => {
+  const erroredSymbols = symbols.filter(symbol => symbol.errors > 0);
+  return erroredSymbols.sort((a, b) => b.errors - a.errors);
+};
+
 module.exports = {
   getNextSymbol,
+  getErrors,
+  validateInput,
 };
