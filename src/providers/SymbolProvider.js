@@ -8,6 +8,8 @@ const symbols = hiragana.map(symbol => ({
   errors: 0,
 }));
 
+const errors = [];
+
 const getSymbolScore = symbol => symbol.asked - symbol.errors;
 
 const getNextSymbol = () => {
@@ -19,22 +21,29 @@ const getNextSymbol = () => {
   return bestSymbol;
 };
 
+const addError = (symbol) => {
+  // add error to symbol
+  const erroredSymbol = find(symbols, s => s.sym === symbol.sym);
+  erroredSymbol.errors += 1;
+
+  // add error to the precomputed list
+  const existingError = find(errors, s => s.sym === symbol.sym);
+  if (existingError) return;
+  errors.push(symbol);
+};
+
 const validateInput = (symbol, guess, currentError = false) => {
   if (symbol.tra !== guess) {
-    const erroredSymbol = find(symbols, s => s.sym === symbol.sym);
-    erroredSymbol.errors += currentError ? 0 : 1;
+    if (!currentError) addError(symbol);
     return false;
   }
   return true;
 };
 
-const getErrors = () => {
-  const erroredSymbols = symbols.filter(symbol => symbol.errors > 0);
-  return erroredSymbols.sort((a, b) => b.errors - a.errors);
-};
+const getErrors = () => errors.sort((s1, s2) => (s2.errors / s2.asked) - (s1.errors / s1.asked));
 
 module.exports = {
   getNextSymbol,
-  getErrors,
   validateInput,
+  getErrors,
 };

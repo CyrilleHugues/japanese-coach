@@ -18,6 +18,8 @@ body {
   height: 200px;
 }
 
+
+
 .cards {
   position: relative;
   margin: 25px;
@@ -52,10 +54,6 @@ body {
   border: 3px solid #f9dbb8;
 }
 
-.response input.errored {
-  background-color: #EF5350;
-}
-
 .response input:focus {
   outline: none;
 }
@@ -71,4 +69,12 @@ body {
 }
 .swipe-leave-active {
   transform: translateX(-150px);
+}
+
+.swipe-leave .flash-card.min.errored {
+  background-color: #EF5350;
+}
+
+.swipe-leave .flash-card.min.correct {
+  background-color: #29d029;
 }

@@ -1,14 +1,19 @@
 <script>
 /* eslint-env browser */
 import SymbolProvider from './providers/SymbolProvider';
+import RedBin from './components/RedBin';
 
 export default {
   name: 'app',
+  components: {
+    redbin: RedBin,
+  },
   data() {
     return {
       symbol: SymbolProvider.getNextSymbol(),
       guess: '',
       currentError: false,
+      errors: [],
     };
   },
   mounted() {
@@ -18,10 +23,13 @@ export default {
     validate() {
       const valid = SymbolProvider.validateInput(this.symbol, this.guess, this.currentError);
       if (valid) {
-        this.symbol = SymbolProvider.getNextSymbol();
+        this.currentStatus = 'correct';
       } else {
-        this.currentError = true;
+        this.currentStatus = 'errored';
+        this.errors = SymbolProvider.getErrors();
       }
+      this.guess = '';
+      this.symbol = SymbolProvider.getNextSymbol();
     },
   },
 };
@@ -33,14 +41,15 @@ export default {
     <div class="game-container">
       <div class="min cards">
         <transition name="swipe">
-          <div class="min flash-card" :key="symbol.tra">
+          <div class="min flash-card" :class="{currentStatus}" :key="symbol.tra">
             <span>{{ symbol.sym }}</span>
           </div>
         </transition>
       </div>
       <form class="response" @submit.prevent="validate">
-        <input :class="{errored: currentError}" type="text" v-model="guess"/>
+        <input type="text" v-model="guess"/>
       </form>
     </div>
+    <redbin :errors="errors"></redbin>
   </div>
 </template>
