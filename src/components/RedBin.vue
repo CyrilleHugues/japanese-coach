@@ -6,7 +6,8 @@ export default {
   props: ['errors'],
   methods: {
     redden(symbol) {
-      if (symbol.errors < 3) return 'light-red';
+      if (symbol.errors <= 0) return '';
+      if (symbol.errors > 0 && symbol.errors < 3) return 'light-red';
       if (symbol.errors < 5) return 'moderate-red';
       if (symbol.errors < 8) return 'red';
       return 'heavy-red';
@@ -17,30 +18,9 @@ export default {
 
 <template>
   <div class="redbin">
-    <span :class="redden(symbol)" v-for="symbol in errors">{{ symbol.sym }}</span>
+    <span :class="redden(symbol)" v-for="symbol in errors">
+      {{ symbol.sym }}
+      <div class="tooltip">{{ symbol.tra }}</div>
+    </span>
   </div>
 </template>
-
-<style>
-.redbin {
-  margin: auto;
-  background-color: antiquewhite;
-  font-size: 3vh;
-}
-
-.heavy-red {
-  background-color: red;
-}
-
-.red {
-  background-color: #ff4242;
-}
-
-.moderate-red {
-  background-color: #ff6363;
-}
-
-.light-red {
-  background-color: #ffa5a5;
-}
-</style>

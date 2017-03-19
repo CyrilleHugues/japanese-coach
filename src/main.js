@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './App';
 
 import './styles/main.css';
+import './styles/app.css';
 
 /* eslint-disable no-new */
 new Vue({

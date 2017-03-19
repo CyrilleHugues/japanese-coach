@@ -1,0 +1,112 @@
+.game-container {
+  display: flex;
+  margin: auto;
+  width: 500px;
+}
+
+.cards.min, .flash-card.min {
+  width: 200px;
+  height: 200px;
+}
+
+#app h1 {
+  text-align: center;
+}
+
+.cards {
+  position: relative;
+  margin: 25px;
+  width: 600px;
+  height: 200px;
+  font-size: 150px;
+}
+
+.flash-card {
+  background-color: #fbe6cd;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 200px;
+  justify-content: space-around;
+  align-items: center;
+  border: 3px solid #f9dbb8;
+}
+
+.response {
+  margin: 25px;
+}
+
+.response input {
+  height: 200px;
+  width: 200px;
+  background-color: #fbe6cd;
+  border:none;
+  text-align: center;
+  font-family: inherit;
+  font-size: 150px;
+  border: 3px solid #f9dbb8;
+}
+
+.response input:focus {
+  outline: none;
+}
+
+.swipe-enter-active, .swipe-leave-active {
+  transition: all 0.3s;
+}
+.swipe-enter, .swipe-leave-active {
+  opacity: 0;
+}
+.swipe-enter {
+  transform: translateX(150px);
+}
+.swipe-leave-active {
+  transform: translateX(-150px);
+}
+
+.swipe-leave .flash-card.min.errored {
+  background-color: #EF5350;
+}
+
+.swipe-leave .flash-card.min.correct {
+  background-color: #29d029;
+}
+
+.redbin {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 3vh;
+  position: relative;
+  width: 50%;
+}
+
+.redbin span {
+  margin-bottom: 4vh;
+}
+
+.redbin span div {
+  position: absolute;
+  visibility: hidden;
+}
+
+.redbin span:hover div {
+  visibility: visible;
+}
+
+.heavy-red {
+  background-color: red;
+}
+
+.red {
+  background-color: #ff4242;
+}
+
+.moderate-red {
+  background-color: #ff6363;
+}
+
+.light-red {
+  background-color: #ffa5a5;
+}

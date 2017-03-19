@@ -1,4 +1,4 @@
-import { find, sampleSize } from 'lodash';
+import { find, findIndex, sampleSize } from 'lodash';
 import hiragana from './hiragana.json';
 
 const symbols = hiragana.map(symbol => ({
@@ -15,7 +15,7 @@ const getSymbolScore = symbol => symbol.asked - symbol.errors;
 const getNextSymbol = () => {
   const subset = sampleSize(symbols, 5);
   const bestSymbol = subset.reduce((choosen, symbol) => (
-    (getSymbolScore(choosen) > getSymbolScore(symbol)) ? symbol : choosen
+    (getSymbolScore(choosen) >= getSymbolScore(symbol)) ? symbol : choosen
   ), subset[0]);
   bestSymbol.asked += 1;
   return bestSymbol;
@@ -32,11 +32,23 @@ const addError = (symbol) => {
   errors.push(symbol);
 };
 
-const validateInput = (symbol, guess, currentError = false) => {
+const removeError = (symbol) => {
+  const correctSymbol = find(symbols, s => s.sym === symbol.sym);
+  correctSymbol.errors -= 1;
+
+  if (correctSymbol.errors <= 0) {
+    const errorIndex = findIndex(errors, s => s.sym === symbol.sym);
+    if (errorIndex === -1) return;
+    errors.splice(errorIndex, 1);
+  }
+};
+
+const validateInput = (symbol, guess) => {
   if (symbol.tra !== guess) {
-    if (!currentError) addError(symbol);
+    addError(symbol);
     return false;
   }
+  removeError(symbol);
   return true;
 };
 

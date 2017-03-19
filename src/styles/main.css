@@ -1,80 +1,26 @@
-html, body {
-  height: 99%;
-}
 body {
   background-color: #fdf3e7;
   font-family: 'Dosis';
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.game-container {
-  display: flex;
+main > * {
+  display: none;
 }
 
-.cards.min, .flash-card.min {
-  width: 200px;
-  height: 200px;
+main > *:last-child {
+    display: block;
 }
 
-
-
-.cards {
-  position: relative;
-  margin: 25px;
-  width: 600px;
-  height: 200px;
-  font-size: 150px;
+@keyframes pulse {
+    0% { transform: scale(0.95) }
+    100% { transform: scale(1) }
 }
 
-.flash-card {
-  background-color: #fbe6cd;
-  position: absolute;
-  display: flex;
-  width: 100%;
-  height: 200px;
-  justify-content: space-around;
-  align-items: center;
-  border: 3px solid #f9dbb8;
+main > *:target {
+  display: block;
+  animation: pulse 0.2s linear 1;
 }
 
-.response {
-  margin: 25px;
-}
-
-.response input {
-  height: 200px;
-  width: 200px;
-  background-color: #fbe6cd;
-  border:none;
-  text-align: center;
-  font-family: inherit;
-  font-size: 150px;
-  border: 3px solid #f9dbb8;
-}
-
-.response input:focus {
-  outline: none;
-}
-
-.swipe-enter-active, .swipe-leave-active {
-  transition: all 0.3s;
-}
-.swipe-enter, .swipe-leave-active {
-  opacity: 0;
-}
-.swipe-enter {
-  transform: translateX(150px);
-}
-.swipe-leave-active {
-  transform: translateX(-150px);
-}
-
-.swipe-leave .flash-card.min.errored {
-  background-color: #EF5350;
-}
-
-.swipe-leave .flash-card.min.correct {
-  background-color: #29d029;
+main > *:target ~ * {
+    display: none;
 }

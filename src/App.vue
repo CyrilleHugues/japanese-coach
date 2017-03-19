@@ -12,8 +12,8 @@ export default {
     return {
       symbol: SymbolProvider.getNextSymbol(),
       guess: '',
-      currentError: false,
       errors: [],
+      currentStatus: 'correct',
     };
   },
   mounted() {
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     validate() {
-      const valid = SymbolProvider.validateInput(this.symbol, this.guess, this.currentError);
+      const valid = SymbolProvider.validateInput(this.symbol, this.guess);
       if (valid) {
         this.currentStatus = 'correct';
       } else {
